@@ -15,7 +15,11 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 echo "Running unit tests with JUnit and integration tests with Selenium"
-                // Actual command if needed: sh 'mvn test'
+                // Notify after tests
+                mail to: 'djmcr.18@gmail.com',
+                    subject: "Tests Completed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: "The Unit and Integration Tests stage has completed for ${env.JOB_NAME} #${env.BUILD_NUMBER}.",
+                    attachLog: true
             }
         }
         stage('Code Analysis') {
@@ -27,7 +31,11 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo "Performing security scan with OWASP Dependency-Check"
-                // Example: sh 'dependency-check --scan /path/to/project'
+                // Notify after security scan
+                mail to: 'djmcr.18@gmail.com',
+                    subject: "Security Scan Completed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: "The Security Scan stage has completed for ${env.JOB_NAME} #${env.BUILD_NUMBER}.",
+                    attachLog: true
             }
         }
         stage('Deploy to Staging') {
