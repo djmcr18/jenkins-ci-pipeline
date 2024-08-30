@@ -17,9 +17,8 @@ pipeline {
                 echo "Running unit tests with JUnit and integration tests with Selenium"
                 // Notify after tests
                 mail to: 'djmcr.18@gmail.com',
-                    subject: "Tests Completed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: "The Unit and Integration Tests stage has completed for ${env.JOB_NAME} #${env.BUILD_NUMBER}.",
-                    attachLog: true
+                     subject: "Tests Completed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                     body: "The Unit and Integration Tests stage has completed for ${env.JOB_NAME} #${env.BUILD_NUMBER}."
             }
         }
         stage('Code Analysis') {
@@ -33,9 +32,8 @@ pipeline {
                 echo "Performing security scan with OWASP Dependency-Check"
                 // Notify after security scan
                 mail to: 'djmcr.18@gmail.com',
-                    subject: "Security Scan Completed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: "The Security Scan stage has completed for ${env.JOB_NAME} #${env.BUILD_NUMBER}.",
-                    attachLog: true
+                     subject: "Security Scan Completed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                     body: "The Security Scan stage has completed for ${env.JOB_NAME} #${env.BUILD_NUMBER}."
             }
         }
         stage('Deploy to Staging') {
@@ -62,12 +60,12 @@ pipeline {
             echo "Pipeline completed."
         }
         success {
-            mail to: 'djmcr.18@gmail.com',  // Update the recipient email address
+            mail to: 'djmcr.18@gmail.com',
                  subject: "Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                  body: "The pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.\n\nCheck Jenkins for details."
         }
         failure {
-            mail to: 'djmcr.18@gmail.com',  // Update the recipient email address
+            mail to: 'djmcr.18@gmail.com',
                  subject: "Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                  body: "The pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER} failed.\n\nCheck Jenkins for details."
         }
