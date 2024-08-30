@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        GIT_REPO = 'https://github.com/djmcr18/jenkins-ci-pipeline.git' // Your GitHub repo
-        STAGING_SERVER = 'staging-server-address' // Replace with actual staging server address
-        PRODUCTION_SERVER = 'production-server-address' // Replace with actual production server address
+        GIT_REPO = 'https://github.com/djmcr18/jenkins-ci-pipeline.git'
+        STAGING_SERVER = 'staging-server-address'
+        PRODUCTION_SERVER = 'production-server-address'
     }
     stages {
         stage('Build') {
@@ -54,22 +54,14 @@ pipeline {
             echo "Pipeline completed."
         }
         success {
-            script {
-                currentBuild.result = 'SUCCESS'
-                def log = currentBuild.rawBuild.getLog(50).join("\n")  // Get the last 50 lines of the log
-                mail to: 's223341726@deakin.edu.au',
-                     subject: "Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                     body: "The pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.\n\nLog:\n${log}"
-            }
+            mail to: 's223341726@deakin.edu.au',
+                 subject: "Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "The pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.\n\nCheck Jenkins for details."
         }
         failure {
-            script {
-                currentBuild.result = 'FAILURE'
-                def log = currentBuild.rawBuild.getLog(50).join("\n")  // Get the last 50 lines of the log
-                mail to: 's223341726@deakin.edu.au',
-                     subject: "Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                     body: "The pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER} failed.\n\nLog:\n${log}"
-            }
+            mail to: 's223341726@deakin.edu.au',
+                 subject: "Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "The pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER} failed.\n\nCheck Jenkins for details."
         }
     }
 }
